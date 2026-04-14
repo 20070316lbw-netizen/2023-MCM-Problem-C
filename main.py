@@ -10,15 +10,24 @@ from code.feature_engineering import run_feature_engineering
 from code.model_q2 import run_model_q2
 from code.model_q3 import run_model_q3
 from code.feature_ablation import run_feature_ablation
+from code.visualization import run_visualization
+
 
 def main():
-    parser = argparse.ArgumentParser(description="2023 MCM Problem C: Wordle Analysis Pipeline")
-    
+    parser = argparse.ArgumentParser(
+        description="2023 MCM Problem C: Wordle Analysis Pipeline"
+    )
+
     parser.add_argument("--eda", action="store_true", help="运行探索性数据分析 (EDA)")
-    parser.add_argument("--fe", action="store_true", help="运行特征工程 (Feature Engineering)")
+    parser.add_argument(
+        "--fe", action="store_true", help="运行特征工程 (Feature Engineering)"
+    )
     parser.add_argument("--q2", action="store_true", help="运行问题 2 模型 (Model Q2)")
     parser.add_argument("--q3", action="store_true", help="运行问题 3 模型 (Model Q3)")
-    parser.add_argument("--ablation", action="store_true", help="运行特征消融研究 (Feature Ablation)")
+    parser.add_argument(
+        "--ablation", action="store_true", help="运行特征消融研究 (Feature Ablation)"
+    )
+    parser.add_argument("--viz", action="store_true", help="运行可视化 (Visualization)")
     parser.add_argument("--all", action="store_true", help="运行整个流水线")
 
     args = parser.parse_args()
@@ -48,7 +57,12 @@ def main():
         print("\n>>> 开始运行特征消融实验...")
         run_feature_ablation()
 
+    if args.all or args.viz:
+        print("\n>>> 开始运行可视化...")
+        run_visualization()
+
     print("\n任务完成！")
+
 
 if __name__ == "__main__":
     main()
