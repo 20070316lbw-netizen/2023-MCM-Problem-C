@@ -1,0 +1,24 @@
+# 2023 MCM Problem C: Wordle Analysis Project Dependencies
+# Python 3.8+
+
+# Core data analysis
+pandas>=1.5.0
+numpy>=1.24.0
+
+# Data visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Machine learning
+scikit-learn>=1.3.0
+lightgbm>=4.0.0
+
+# Natural language processing
+nltk>=3.8.0
+wordfreq>=3.0.0
+
+# Excel file support (for reading .xlsx files)
+openpyxl>=3.1.0
+
+# Optional: for better performance
+# joblib>=1.3.0
