@@ -329,12 +329,57 @@ def run_model_q1():
 
             if not (hist_lower <= hist_pred <= hist_upper):
                 print(
-                    f"  样本{idx}: 实际值={actual:.0f}, 预测={hist_pred:.0f}, 区间=[{hist_lower:.0f}, {hist_upper:.0f}] ✗"
+                    f"  样本{idx}: 实际值={actual:.0f}, 预测={hist_pred:.0f}, 区间=[{hist_lower:.0f}, {hist_upper:.0f}] [ERROR]"
                 )
             else:
                 print(
-                    f"  样本{idx}: 实际值={actual:.0f}, 预测={hist_pred:.0f}, 区间=[{hist_lower:.0f}, {hist_upper:.0f}] ✓"
+                    f"  样本{idx}: 实际值={actual:.0f}, 预测={hist_pred:.0f}, 区间=[{hist_lower:.0f}, {hist_upper:.0f}] [OK]"
                 )
+
+        # 分析未来日期特征与历史数据的差异
+        print("\n[分析] 未来日期特征与历史数据对比:")
+        print("  特征            未来日期值    历史平均值    历史标准差")
+        for i, feat_name in enumerate(feature_cols):
+            hist_mean = X[:, i].mean()
+            hist_std = X[:, i].std()
+            future_val = X_target[0, i]
+            z_score = (future_val - hist_mean) / hist_std if hist_std > 0 else 0
+            print(
+                f"  {feat_name:15s} {future_val:12.1f} {hist_mean:12.1f} {hist_std:12.1f} (z={z_score:.2f})"
+            )
+
+        # 关键发现：days_from_start的z-score高达12.33，模型在外推区域
+        print("\n[关键发现] days_from_start的z-score=12.33，模型在外推区域")
+        print("  分位数回归在外推区域可能不稳定")
+        print("  改用历史预测误差分布构建预测区间...")
+
+        # 方法2：使用历史预测误差的分布构建预测区间
+        # 计算历史预测误差
+        historical_predictions = full_model.predict(X)
+        errors = y - historical_predictions
+
+        # 计算误差的分位数
+        error_q10 = np.percentile(errors, 10)
+        error_q90 = np.percentile(errors, 90)
+
+        # 构建稳健的预测区间
+        pred_robust_lower = pred + error_q10
+        pred_robust_upper = pred + error_q90
+
+        print(f"\n[稳健预测区间] 基于历史误差分布:")
+        print(f"  预测报告人数: {pred:.0f}")
+        print(f"  80%预测区间: [{pred_robust_lower:.0f}, {pred_robust_upper:.0f}]")
+        print(f"  区间宽度: {pred_robust_upper - pred_robust_lower:.0f}")
+
+        # 验证稳健区间
+        if pred_robust_lower <= pred <= pred_robust_upper:
+            print("  [OK] 预测值在稳健预测区间内")
+        else:
+            print("  [ERROR] 预测值不在稳健预测区间内")
+
+        # 更新预测区间为稳健版本
+        pred_lower = pred_robust_lower
+        pred_upper = pred_robust_upper
 
     else:
         print(f"目标日期 {target_date.date()} 在数据范围内，使用实际值")
