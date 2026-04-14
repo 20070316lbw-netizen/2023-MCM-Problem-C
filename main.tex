@@ -1,0 +1,139 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{ctex}
+\usepackage{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+% 页码设置
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% 代码块样式
+\lstset{
+    basicstyle=\small\ttfamily,
+    breaklines=true,
+    frame=single,
+    language=Python
+}
+
+\begin{document}
+
+% ===== 第一页：承诺书（从官网下载后手动插入）=====
+\newpage
+
+% ===== 第二页：编号专用页（从官网下载后手动插入）=====
+\newpage
+
+% ===== 第三页：摘要页 =====
+\setcounter{page}{1}
+\begin{center}
+    {\Large \textbf{论文标题}}\\[0.5cm]
+    \textbf{摘要}
+\end{center}
+
+本文针对……问题，建立了……模型。
+对于问题一，……；
+对于问题二，……；
+对于问题三，……。
+最终得到……结论。
+
+\vspace{0.5cm}
+\noindent\textbf{关键词：} 关键词1；关键词2；关键词3
+
+\newpage
+
+% ===== 正文 =====
+
+\section{问题重述}
+% 用自己的话概括题目，明确各子问题
+
+\section{问题分析}
+% 分析题目类型，说明整体解题思路
+
+\section{模型假设}
+\begin{enumerate}
+    \item 假设一……，由：……
+    \item 假设二……，由：……
+    \item 假设三……，由：……
+\end{enumerate}
+
+\section{符号说明}
+\begin{table}[h]
+\centering
+\begin{tabular}{cl}
+\toprule
+符号 & 说明 \\
+\midrule
+$x$ & 说明 \\
+$y$ & 说明 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{模型建立与求解}
+
+\subsection{问题一：XXX}
+
+\subsubsection{建模思路}
+
+\subsubsection{模型建立}
+
+\subsubsection{求解结果}
+
+\subsection{问题二：XXX}
+
+\subsubsection{建模思路}
+
+\subsubsection{模型建立}
+
+\subsubsection{求解结果}
+
+\subsection{问题三：XXX}
+
+\subsubsection{建模思路}
+
+\subsubsection{模型建立}
+
+\subsubsection{求解结果}
+
+\section{模型评价与改进}
+
+\subsection{模型优点}
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\subsection{模型局限性}
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\subsection{改进方向}
+
+\begin{thebibliography}{99}
+\bibitem{ref1} 作者. 标题[J]. 期刊, 年份.
+\end{thebibliography}
+
+% ===== 附录 =====
+\appendix
+\section{支撑材料文件列表}
+\begin{itemize}
+    \item \texttt{code/} — 全部源代码
+    \item \texttt{data/} — 数据文件
+\end{itemize}
+
+\section{核心代码}
+\begin{lstlisting}
+# 在此粘贴核心代码
+\end{lstlisting}
+
+\end{document}
