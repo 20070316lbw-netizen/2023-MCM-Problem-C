@@ -7,6 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "code"))
 
 from code.eda import run_eda
 from code.feature_engineering import run_feature_engineering
+from code.model_q1 import run_model_q1
 from code.model_q2 import run_model_q2
 from code.model_q3 import run_model_q3
 from code.feature_ablation import run_feature_ablation
@@ -22,6 +23,7 @@ def main():
     parser.add_argument(
         "--fe", action="store_true", help="运行特征工程 (Feature Engineering)"
     )
+    parser.add_argument("--q1", action="store_true", help="运行问题 1 模型 (时序预测)")
     parser.add_argument("--q2", action="store_true", help="运行问题 2 模型 (Model Q2)")
     parser.add_argument("--q3", action="store_true", help="运行问题 3 模型 (Model Q3)")
     parser.add_argument(
@@ -44,6 +46,10 @@ def main():
     if args.all or args.fe:
         print("\n>>> 开始运行特征工程...")
         run_feature_engineering()
+
+    if args.all or args.q1:
+        print("\n>>> 开始运行问题 1 模型 (时序预测)...")
+        run_model_q1()
 
     if args.all or args.q2:
         print("\n>>> 开始运行问题 2 模型...")
